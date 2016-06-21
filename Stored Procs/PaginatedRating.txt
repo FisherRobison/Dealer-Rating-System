@@ -1,0 +1,28 @@
+GO
+CREATE PROC [dbo].[Rating_Select_Page]
+			
+    
+		   @CurrentPage int = 1,
+		   @ItemsPerPage int = 10,
+		   @TargetId int
+AS
+
+BEGIN
+		Declare @FirstRec int, @LastRec int
+		set @FirstRec = @ItemsPerPage;
+		set @LastRec = @ItemsPerPage + @CurrentPage;
+
+
+SELECT   
+		 [rating]
+		,[comments]
+	  
+
+  FROM [dbo].[Ratings]
+  WHERE targetId = @TargetId
+  ORDER BY TargetId  
+
+   OFFSET ((@CurrentPage - 1) * @ItemsPerPage) ROWS
+                FETCH NEXT  @ItemsPerPage ROWS ONLY
+
+END

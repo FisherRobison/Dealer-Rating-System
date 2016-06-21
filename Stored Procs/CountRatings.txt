@@ -1,0 +1,16 @@
+GO
+
+CREATE Procedure [dbo].[Ratings_SelectByCount]
+
+@TargetId int
+As 
+
+Begin
+
+
+select count(comments)
+
+FROM [dbo].[Ratings] where [targetId] = @TargetId
+
+
+End

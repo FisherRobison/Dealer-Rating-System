@@ -1,0 +1,33 @@
+GO
+
+CREATE PROC [dbo].[Ratings_Insert]
+
+@UserId nvarchar(50),
+@Rating int,
+@Comments nvarchar(MAX),
+@TypeId int,
+@TargetId nvarchar(50),
+@TargetUserId nvarchar(50)=null,
+@Id int OUTPUT
+
+
+
+AS
+BEGIN
+
+
+INSERT INTO [dbo].[Ratings]
+           (
+            [userId]
+           ,[rating]
+           ,[comments]
+           ,[typeId]
+           ,[targetId]
+           ,[targetUserId]
+           ,[created])
+     VALUES
+           (@UserId,@Rating,@Comments,@TypeId,@TargetId,null,GETUTCDATE())
+	
+	EXEC [dbo].[Dealer_Rating] @TargetId
+END
+
